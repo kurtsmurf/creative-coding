@@ -19,7 +19,7 @@ const sketch = () => {
         const v = count <= 1 ? 0.5 : y / (count - 1)
         points.push({
           position: [u, v],
-          radius: random.value() * 50
+          radius: random.value() * 0.04
         })
       }
     }
@@ -42,7 +42,7 @@ const sketch = () => {
       const y = lerp(margin, height - margin, v)
 
       context.beginPath()
-      context.arc(x, y, radius, 0, Math.PI * 2)
+      context.arc(x, y, radius * width, 0, Math.PI * 2)
       context.strokeStyle = 'black'
       context.lineWidth = 10
       context.stroke()
