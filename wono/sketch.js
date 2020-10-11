@@ -13,14 +13,16 @@ const sketch = () => {
 
   const createGrid = () => {
     const points = []
-    const count = 200
+    const count = 30
 
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
         const u = count <= 1 ? 0.5 : x / (count - 1)
         const v = count <= 1 ? 0.5 : y / (count - 1)
 
-        const radius = (random.noise2D(u * 0.25, v * 0.25) * 0.5 + 0.5) * .03
+        const frequency = 1.25
+        const spread =.02
+        const radius = (random.noise2D(u * frequency, v * frequency) * 0.5 + 0.5) * spread
 
         points.push({
           color: random.pick(palette),
@@ -49,27 +51,19 @@ const sketch = () => {
       const x = lerp(margin, width - margin, u)
       const y = lerp(margin, height - margin, v)
 
-      context.beginPath()
-      context.arc(x, y, radius * width, 0, Math.PI * 2)
-
-      // context.fillStyle = color;
-      // context.fill()
-
-      // context.strokeStyle = color
-      // context.lineWidth = 5
-      // context.stroke()
-
       const fontSize = Math.floor(radius * width * 2)
       const font = `${fontSize}px helvetica`
-      // console.log(font)
-
       const text = String.fromCharCode(random.rangeFloor(unicodeL, unicodeR))
 
+      context.save()
+      
+      context.translate(x, y)
+      context.rotate(Math.PI * 60 * radius)
 
       context.fillStyle = color;
       context.font = font
-      context.fillText(text, x,y)
-
+      context.fillText(text, 0,0)
+      context.restore()
     })
   };
 };
