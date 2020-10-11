@@ -2,7 +2,7 @@ const canvasSketch = require('canvas-sketch');
 const { lerp } = require('canvas-sketch-util/math')
 const random = require('canvas-sketch-util/random')
 
-random.setSeed(10)
+random.setSeed(17)
 
 const settings = {
   dimensions: [2048, 2048]
@@ -19,7 +19,7 @@ const sketch = () => {
         const v = count <= 1 ? 0.5 : y / (count - 1)
         points.push({
           position: [u, v],
-          radius: random.value() * 0.04
+          radius: Math.abs(0.006 + random.gaussian() * 0.01)
         })
       }
     }
@@ -43,9 +43,13 @@ const sketch = () => {
 
       context.beginPath()
       context.arc(x, y, radius * width, 0, Math.PI * 2)
-      context.strokeStyle = 'black'
-      context.lineWidth = 10
-      context.stroke()
+
+      context.fillStyle = 'black';
+      context.fill()
+
+      // context.strokeStyle = 'black'
+      // context.lineWidth = 5
+      // context.stroke()
     })
   };
 };
