@@ -3,8 +3,6 @@ const { lerp } = require('canvas-sketch-util/math')
 const random = require('canvas-sketch-util/random')
 const palettes = require('nice-color-palettes')
 
-console.log(palettes)
-
 const settings = {
   dimensions: [2048, 2048]
 };
@@ -15,14 +13,14 @@ const sketch = () => {
 
   const createGrid = () => {
     const points = []
-    const count = 40
+    const count = 200
 
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
         const u = count <= 1 ? 0.5 : x / (count - 1)
         const v = count <= 1 ? 0.5 : y / (count - 1)
 
-        const radius = (random.noise2D(u, v) * 0.5 + 0.5) * .03
+        const radius = (random.noise2D(u * 0.25, v * 0.25) * 0.5 + 0.5) * .03
 
         points.push({
           color: random.pick(palette),
@@ -44,7 +42,7 @@ const sketch = () => {
     context.fillStyle = 'white'
     context.fillRect(0, 0, width, height)
 
-    const margin = 200
+    const margin = 400
 
     points.forEach(({ position, radius, color }) => {
       const [u, v] = position;
@@ -61,7 +59,7 @@ const sketch = () => {
       // context.lineWidth = 5
       // context.stroke()
 
-      const fontSize = Math.floor(radius * width * 8)
+      const fontSize = Math.floor(radius * width * 2)
       const font = `${fontSize}px helvetica`
       // console.log(font)
 
