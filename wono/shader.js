@@ -16,12 +16,14 @@ const frag = glsl(`
   uniform float aspect;
   varying vec2 vUv;
 
+  #pragma glslify: noise = require('glsl-noise/simplex/3d');
+
   void main () {
 		vec3 colorA = vec3(1.0, 0.0, 0.0);
 		vec3 colorB = vec3(0.0, 0.0, 1.0);
     vec3 color = mix(colorA, colorB, vUv.y);
     
-    vec2 center = vUv - 0.5 * mix(tan(vUv.x), tan(vUv.y), sin(time) * 2.0 + 1.0);
+    vec2 center = vUv - 0.5 * mix(tan(vUv.x), tan (vUv.y), sin(time) * 2.0 + 1.0);
     center.x *= aspect;
     float dist = length(center);
 
