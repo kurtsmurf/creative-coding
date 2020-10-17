@@ -22,10 +22,11 @@ const frag = glsl(`
   void main () {
     vec2 center = vUv - 0.5;
     center.x *= aspect;
-    float dist = length(center);
-    float alpha = smoothstep(0.254, 0.25, dist);
 
-    float n = noise(vec3(center, time * 0.2));
+    float dist = length(center);
+    float alpha = smoothstep(0.254 + (sin(time / 4.0) / 2.0 + 0.5) * 0.03, 0.25, dist);
+
+    float n = noise(vec3(center, time * 0.5));
 
     vec3 color = hsl2rgb(0.3 + n * 0.15, 0.5, 0.5);
 
@@ -47,7 +48,6 @@ const sketch = ({ gl }) => {
       // Expose props from canvas-sketch
       time: ({ time }) => time,
       aspect: ({ width, height }) => width / height
-
     }
   });
 };
