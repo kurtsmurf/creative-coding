@@ -13,7 +13,7 @@ const sketch = () => {
 
   const createGrid = () => {
     const points = []
-    const count = 30
+    const count = 300
 
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
@@ -21,7 +21,7 @@ const sketch = () => {
         const v = count <= 1 ? 0.5 : y / (count - 1)
 
         const frequency = 1.25
-        const spread =.02
+        const spread = .25
         const radius = (random.noise2D(u * frequency, v * frequency) * 0.5 + 0.5) * spread
 
         points.push({
